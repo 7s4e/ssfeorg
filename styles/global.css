@@ -1,0 +1,183 @@
+/* Global styles for 7s4e.org, last updated 1 July 2023.
+
+    Table of Contents                                                    Line #
+    ---------------------------------------------------------------------------
+    Import ..............................................................   20
+    Custom properties ...................................................   23
+
+    Styles by section
+        Macro styles ....................................................   39
+        Header & footer .................................................   49
+        Navigation bar ..................................................   77
+    
+    Styles by type
+        Images ..........................................................  114
+        Text ............................................................  130
+    
+    Media Queries .......................................................  159
+ */
+
+/* Import */
+@import url("https://fonts.googleapis.com/css2?family=Passion+One&family=Ubuntu:wght@300&display=swap");
+
+/* Custom Properties */
+:root {
+    /* Color */
+    --heading-font: "Passion One", cursive;
+    --paragraph-font: Lato, "Ubuntu", sans-serif;
+
+    /* Color */
+    --background: #76abdf; /* ruddy blue */
+    --primary: #24468f; /* Marian blue */
+    --secondary: #6c8f2b; /* avacado */
+    --tertiary: #db7763; /* burnt sienna */
+    --accent: #a2db37; /* yellow green */
+    --dark-text: black;
+    --light-text: white;
+
+    /* Layout */
+    --max-width: 850px;
+    --min-width: 400px;
+}
+
+/* Macro Styles */
+body {
+    background-color: var(--background);
+    color: var(--dark-text);
+    font-family: var(--paragraph-font);
+}
+.content-wrapper { /* container to constrain width on large viewport */
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+/* Header & Footer */
+header, footer{ /* header and footer bars, excluding header content */
+    background-image: linear-gradient(
+        to right,
+        var(--background),
+        var(--secondary)
+    );
+}
+.header { /* container for header content */
+    display: grid;
+    grid-template-columns: 50px 1fr 3fr;
+}
+.header img { /* 7s4e logo */
+    grid-column: 1/2;
+    display: block;
+    margin: 0 auto;
+    padding: 4px;
+    height: 42px;
+}
+.footer { /* container for footer content */
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+.site-plan {grid-column: 1/2;}
+.updated {
+    grid-column: 2/3;
+    text-align: right;}
+
+/* Navigation Bar*/
+nav { /* included within .header container */
+    grid-column: 3/4;
+    display: flex;
+    justify-content: space-around;
+}
+nav a { /* nav anchors */
+    display: flex;
+    align-self: center;
+    height: 84%;
+    box-sizing: border-box;
+    padding: 2px;
+    text-decoration: none;
+    /* https://css-tricks.com/cool-hover-effects-using-background-properties/ */
+    /* background:
+        linear-gradient(var(--accent) 0 0)
+            var(--p, 0) / var(--p, 0) no-repeat; */
+    /* transition: 0.3s, background-position 0s; */
+}
+nav a span {align-self: center;} /* vertical alignment */
+nav a.active { /* current page */
+    background-color: var(--tertiary);
+    font-weight: bold;
+}
+nav a:link {color: var(--primary);} /* unvisited pages */
+nav a:visited {color: var(--dark-text);} /* visited pages */
+nav a:focus {border: 5px solid var(--accent);} /* anchor in focus */
+nav a:hover { /* anchor under hover */
+    background-color: var(--accent);
+    --p: 100%;
+}
+nav a:active {background-color: var(--secondary);} /* selected anchor */
+nav a.inactive { /* pending pages */
+    font-style: italic;
+    pointer-events: none;
+}
+
+/* Images */
+.banner {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    width: 80%;
+}
+.portrait {
+    width: 40%;
+    float: right;
+    margin: 3px;
+    border: 2px solid var(--secondary);
+    border-radius: 5px;
+}
+.background {width: 100%;}
+
+/* Text */
+.title {
+    color: var(--primary);
+    text-align: center;
+    font-family: var(--heading-font);
+}
+.title span {font-style: italic;}
+p span {
+    font-style: italic;
+    font-weight: bold;
+}
+.logo-bullets {
+    list-style: none;
+    padding-left: 5px;
+}
+.logo-bullets li {
+    position: relative;
+    padding-left: 20px;
+}
+.logo-bullets li::before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-image: url(../images/logoBlack.png);
+    background-size: cover;
+    background-position: center;
+    left: 0;
+}
+
+/* Media Queries */
+@media screen and (max-width: 400px) { /* Why not var(--min-width) here? */
+    .header {
+        grid-template-columns: 1fr;
+        grid-template-rows: 50px auto;
+    }
+    .header img {grid-row: 1/2;}
+    nav {
+        grid-column: 1/2;
+        grid-row: 2/3;
+        display: grid;
+        grid-template-rows: repeat(6, 1fr);
+    }
+    nav a {padding: 0 100px;}
+    nav a span {
+        display: block;
+        margin: 0 auto;
+    }
+}
